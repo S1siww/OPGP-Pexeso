@@ -7,7 +7,16 @@ from graphics import draw_board
 class Game:
     def __init__(self, screen):
         self.screen = screen
-        self.karty = list("AABBCCDDEEFFGGHH")
+        self.karty = [
+            "banan.jpg", "banan.jpg",
+            "brusnica.png", "brusnica.png",
+            "citron.jpg", "citron.jpg",
+            "jablko.jpg", "jablko.jpg",
+            "jahoda.jpg", "jahoda.jpg",
+            "kiwi.jpg", "kiwi.jpg",
+            "pomaranc.jpg", "pomaranc.jpg",
+            "visne.jpg", "visne.jpg"
+        ]
         random.shuffle(self.karty)
         self.odhalene = [False] * len(self.karty)
         self.otocene = []
