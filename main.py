@@ -1,6 +1,7 @@
 import pygame
 from config import WIDTH, HEIGHT
 from game import Game
+from graphics import draw_board
 
 def main():
     pygame.init()
