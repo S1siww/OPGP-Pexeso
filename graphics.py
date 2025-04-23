@@ -16,9 +16,12 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
                 screen.blit(image, (x + 5, y + 5))
 
     na_rade_text = MALY_FONT.render(f"Na rade je {hrac_narade}. hráč", True, MODRA if hrac_narade == 1 else CERVENA)
-    screen.blit(na_rade_text, (20, HEIGHT - 50))
+    screen.blit(na_rade_text, (WIDTH // 2 - 270, VELKOST_POLA * VELKOST_KARTY + 10))
 
-    skore_text = MALY_FONT.render(f"Body - Hráč 1: {skore[1]}  Hráč 2: {skore[2]}", True, CIERNA)
-    screen.blit(skore_text, (WIDTH // 2 - 60, HEIGHT - 50))
+    skore_text1 = MALY_FONT.render(f"Body - Hráč 1: {skore[1]}", True, CIERNA)
+    screen.blit(skore_text1, (WIDTH // 2 - 30, VELKOST_POLA * VELKOST_KARTY + 10))
+
+    skore_text2 = MALY_FONT.render(f"Hráč 2: {skore[2]}", True, CIERNA)
+    screen.blit(skore_text2, (WIDTH // 2 + 53, VELKOST_POLA * VELKOST_KARTY + 50))
 
     pygame.display.flip()
