@@ -53,3 +53,25 @@ class Game:
             self.hrac_narade = 2 if self.hrac_narade == 1 else 1
         self.otocene = []
 
+    def je_koniec(self):
+        return len(self.spojene) == len(self.karty)
+
+    def zobraz_vysledok(self):
+        self.screen.fill(BIELA)
+        vysledok_text = FONT.render("Koniec hry!", True, CIERNA)
+        self.screen.blit(vysledok_text, (WIDTH // 2 - vysledok_text.get_width() // 2, 100))
+
+        skore1 = MALY_FONT.render(f"Hráč 1: {self.skore[1]} bodov", True, MODRA)
+        skore2 = MALY_FONT.render(f"Hráč 2: {self.skore[2]} bodov", True, CERVENA)
+
+        self.screen.blit(skore1, (WIDTH // 2 - skore1.get_width() // 2, 200))
+        self.screen.blit(skore2, (WIDTH // 2 - skore2.get_width() // 2, 250))
+
+        tlacidlo_rect = pygame.Rect(WIDTH // 2 - 100, 350, 200, 60)
+        pygame.draw.rect(self.screen, SIVA, tlacidlo_rect)
+        text = MALY_FONT.render("Späť", True, CIERNA)
+        self.screen.blit(text, (tlacidlo_rect.centerx - text.get_width() // 2,
+                                tlacidlo_rect.centery - text.get_height() // 2))
+
+        pygame.display.flip()
+        return tlacidlo_rect
