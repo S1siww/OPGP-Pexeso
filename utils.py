@@ -14,3 +14,7 @@ def nova_hra():
 
 def zmen_hraca(hrac):
     return 2 if hrac == 1 else 2
+
+def hra_skoncila(spojene, pocet_kariet):
+    return len(spojene) == pocet_kariet
+
