@@ -2,11 +2,14 @@ import pygame
 from config import WIDTH, HEIGHT
 from game import Game
 from graphics import draw_board
+from menu import zobraz_menu
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Pexeso")
+
+    zobraz_menu(screen)
 
     game = Game(screen)
 
