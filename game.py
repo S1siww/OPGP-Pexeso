@@ -49,6 +49,7 @@ class Game:
         time.sleep(0.5)
         if self.karty[i] == self.karty[j]:
             self.spojene.extend(self.otocene)
+            sounds.match_sound.play()
             self.skore[self.hrac_narade] += 1
         else:
             self.odhalene[i] = False
