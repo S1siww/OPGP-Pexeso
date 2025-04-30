@@ -2,6 +2,7 @@ import pygame
 from config import WIDTH, HEIGHT
 from game import Game
 from menu import zobraz_menu
+from gameover import zobraz_gameover
 
 
 def main():
@@ -26,7 +27,7 @@ def main():
                     game.handle_click(event.pos)
 
             if game.je_koniec():
-                tlacidlo_rect = game.zobraz_vysledok()
+                tlacidlo_rect = zobraz_gameover(screen, game.skore)
                 cakanie = True
                 while cakanie:
                     for event in pygame.event.get():
