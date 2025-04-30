@@ -44,7 +44,7 @@ class Game:
         i, j = self.otocene
         self.draw()
         pygame.display.update()
-        time.sleep(1.5)
+        time.sleep(0.5)
         if self.karty[i] == self.karty[j]:
             self.spojene.extend(self.otocene)
             self.skore[self.hrac_narade] += 1
