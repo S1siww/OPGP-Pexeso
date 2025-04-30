@@ -1,6 +1,7 @@
 import pygame
 from config import *
 
+
 def zobraz_menu(screen):
     running = True
 
