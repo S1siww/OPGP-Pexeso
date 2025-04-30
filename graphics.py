@@ -10,7 +10,7 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
             pygame.draw.rect(screen, SIVA, (x, y, VELKOST_KARTY - 5, VELKOST_KARTY - 5))
 
             if odhalene[index] or index in spojene:
-                image = pygame.image.load(f"assets/{karty[index]}")
+                image = pygame.image.load(f"assets/obrazky/{karty[index]}")
                 image = pygame.transform.scale(image, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
                 screen.blit(image, (x + 5, y + 5))
 

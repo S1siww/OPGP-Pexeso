@@ -5,6 +5,8 @@ from config import *
 from graphics import draw_board
 import sounds
 from gameover import zobraz_gameover
+
+
 class Game:
     def __init__(self, screen):
         self.screen = screen
