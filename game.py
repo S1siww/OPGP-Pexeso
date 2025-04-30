@@ -4,6 +4,7 @@ import time
 from config import *
 from graphics import draw_board
 
+
 class Game:
     def __init__(self, screen):
         self.screen = screen
