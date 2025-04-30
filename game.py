@@ -3,9 +3,8 @@ import random
 import time
 from config import *
 from graphics import draw_board
+import sounds
 from gameover import zobraz_gameover
-
-
 class Game:
     def __init__(self, screen):
         self.screen = screen
@@ -37,6 +36,7 @@ class Game:
         index = row * VELKOST_POLA + col
         if 0 <= index < len(self.karty) and not self.odhalene[index] and index not in self.spojene:
             self.odhalene[index] = True
+            sounds.flip_sound.play()
             self.otocene.append(index)
             if len(self.otocene) == 2:
                 self.kontrola()
