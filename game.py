@@ -4,7 +4,6 @@ from config import *
 from graphics import draw_board
 import sounds
 from gameover import zobraz_gameover
-from utils import *
 
 
 class Game:
@@ -63,35 +62,30 @@ class Game:
 
     def run(self):
         hra_bezi = True
-        running = True
 
         while hra_bezi:
             self.draw()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    hra_bezi = False
-                    running = False
+                    return False
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     self.handle_click(event.pos)
 
             if self.je_koniec():
                 spat_rect, nova_hra_rect = zobraz_gameover(self.screen, self.skore)
-                cakanie = True
-                while cakanie:
+                while True:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
-                            cakanie = False
-                            hra_bezi = False
-                            running = False
+                            return False
                         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                             if spat_rect.collidepoint(event.pos):
-                                cakanie = False
-                                hra_bezi = False
-                                running = False
+                                return True
                             elif nova_hra_rect.collidepoint(event.pos):
-                                cakanie = False
-                                resetuj_hru(self)
+                                self.__init__(self.screen)
+                                break
+                    else:
+                        pygame.time.delay(100)
+                        continue
+                    break
 
-                    pygame.time.delay(100)
-
-        return running
+        return True
