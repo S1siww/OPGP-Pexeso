@@ -4,6 +4,7 @@ from config import *
 from graphics import draw_board
 import sounds
 from gameover import zobraz_gameover
+from utils import *
 
 
 class Game:
@@ -88,8 +89,7 @@ class Game:
                                 running = False
                             elif nova_hra_rect.collidepoint(event.pos):
                                 cakanie = False
-                                game = Game(self.screen)
-                                hra_bezi = game.run()
+                                resetuj_hru(self)
 
                     pygame.time.delay(100)
 

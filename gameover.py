@@ -1,5 +1,5 @@
 import pygame
-from config import WIDTH, BIELA, CIERNA, SIVA, FONT, MALY_FONT, MODRA, CERVENA
+from config import *
 
 
 def zobraz_gameover(screen, skore):
