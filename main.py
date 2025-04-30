@@ -37,7 +37,7 @@ def main():
                         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                             if tlacidlo_rect.collidepoint(event.pos):
                                 cakanie = False
-                                hra_bezi = False  # vráti sa do hlavného menu
+                                hra_bezi = False
                     pygame.time.delay(100)
 
     pygame.quit()
