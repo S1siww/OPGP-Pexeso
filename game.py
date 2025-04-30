@@ -3,6 +3,7 @@ import random
 import time
 from config import *
 from graphics import draw_board
+from gameover import zobraz_gameover
 
 
 class Game:
@@ -57,3 +58,32 @@ class Game:
     def je_koniec(self):
         return len(self.spojene) == len(self.karty)
 
+    def run(self):
+        hra_bezi = True
+        running = True
+
+        while hra_bezi:
+            self.draw()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    hra_bezi = False
+                    running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    self.handle_click(event.pos)
+
+            if self.je_koniec():
+                tlacidlo_rect = zobraz_gameover(self.screen, self.skore)
+                cakanie = True
+                while cakanie:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            cakanie = False
+                            hra_bezi = False
+                            running = False
+                        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                            if tlacidlo_rect.collidepoint(event.pos):
+                                cakanie = False
+                                hra_bezi = False
+                    pygame.time.delay(100)
+
+        return running
