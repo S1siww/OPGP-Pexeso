@@ -23,11 +23,18 @@ def zobraz_gameover(screen, skore):
 
     screen.blit(vitaz_text, (WIDTH // 2 - vitaz_text.get_width() // 2, 240))
 
-    tlacidlo_rect = pygame.Rect(WIDTH // 2 - 100, 320, 200, 60)
-    pygame.draw.rect(screen, SIVA, tlacidlo_rect)
+    spat_rect = pygame.Rect(WIDTH // 2 - 100, 320, 200, 60)
+    pygame.draw.rect(screen, SIVA, spat_rect)
     text = MALY_FONT.render("Späť", True, CIERNA)
-    screen.blit(text, (tlacidlo_rect.centerx - text.get_width() // 2,
-                       tlacidlo_rect.centery - text.get_height() // 2))
+    screen.blit(text, (spat_rect.centerx - text.get_width() // 2,
+                       spat_rect.centery - text.get_height() // 2))
+
+    nova_hra_rect = pygame.Rect(WIDTH // 2 - 100, 400, 200, 60)
+    pygame.draw.rect(screen, SIVA, nova_hra_rect)
+    nova_hra_text = MALY_FONT.render("Nová hra", True, CIERNA)
+    screen.blit(nova_hra_text, (nova_hra_rect.centerx - nova_hra_text.get_width() // 2,
+                                nova_hra_rect.centery - nova_hra_text.get_height() // 2))
 
     pygame.display.flip()
-    return tlacidlo_rect
+
+    return spat_rect, nova_hra_rect

@@ -22,6 +22,5 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
 
     skore_text2 = MALY_FONT.render(f"Hráč 2: {skore[2]}", True, CIERNA)
     screen.blit(skore_text2, (WIDTH // 2 + 53, VELKOST_POLA * VELKOST_KARTY + 50))
-    
 
     pygame.display.flip()

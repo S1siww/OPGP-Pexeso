@@ -12,6 +12,7 @@ def main():
     running = True
     while running:
         zobraz_menu(screen)
+
         game = Game(screen)
         running = game.run()
 
