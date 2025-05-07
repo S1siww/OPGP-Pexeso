@@ -31,7 +31,7 @@ class Game:
     def draw(self):
         draw_board(self.screen, self.karty, self.odhalene, self.spojene,
                    self.hrac_narade, self.skore)
-        ikona = pygame.image.load("assets/zvuk_on.png" if self.zvuk_zapnuty else "assets/zvuk_off.png")
+        ikona = pygame.image.load("assets/obrazky/zvuk_on.png" if self.zvuk_zapnuty else "assets/obrazky/zvuk_off.png")
         ikona = pygame.transform.scale(ikona, (40, 40))
         self.zvuk_rect = self.screen.blit(ikona, (WIDTH - 50, HEIGHT - 50))
 
