@@ -12,6 +12,8 @@ MODRA = (0, 0, 255)
 CERVENA = (255, 0, 0)
 
 
+
+
 pygame.font.init()
 FONT = pygame.font.Font(None, 72)
 MALY_FONT = pygame.font.Font(None, 36)
