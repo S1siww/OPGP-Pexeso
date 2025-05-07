@@ -1,3 +1,4 @@
+
 import random
 import time
 from config import *
@@ -9,16 +10,7 @@ from gameover import zobraz_gameover
 class Game:
     def __init__(self, screen):
         self.screen = screen
-        self.karty = [
-            "banan.jpg", "banan.jpg",
-            "brusnica.png", "brusnica.png",
-            "citron.jpg", "citron.jpg",
-            "jablko.jpg", "jablko.jpg",
-            "jahoda.jpg", "jahoda.jpg",
-            "kiwi.jpg", "kiwi.jpg",
-            "pomaranc.jpg", "pomaranc.jpg",
-            "visne.jpg", "visne.jpg"
-        ]
+        self.karty = KARTY.copy()
         random.shuffle(self.karty)
         self.odhalene = [False] * len(self.karty)
         self.otocene = []

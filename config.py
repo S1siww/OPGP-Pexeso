@@ -1,3 +1,4 @@
+
 import pygame
 
 WIDTH = 600
@@ -12,8 +13,17 @@ MODRA = (0, 0, 255)
 CERVENA = (255, 0, 0)
 
 
-
-
 pygame.font.init()
 FONT = pygame.font.Font(None, 72)
 MALY_FONT = pygame.font.Font(None, 36)
+
+KARTY = [
+    "banan.jpg", "banan.jpg",
+    "brusnica.png", "brusnica.png",
+    "citron.jpg", "citron.jpg",
+    "jablko.jpg", "jablko.jpg",
+    "jahoda.jpg", "jahoda.jpg",
+    "kiwi.jpg", "kiwi.jpg",
+    "pomaranc.jpg", "pomaranc.jpg",
+    "visne.jpg", "visne.jpg"
+]
