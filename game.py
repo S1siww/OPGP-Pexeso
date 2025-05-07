@@ -1,7 +1,7 @@
 import random
 import time
 from config import *
-from graphics import draw_board, otoc_animaciu, nacitaj_obrazok
+from graphics import *
 import sounds
 from gameover import zobraz_gameover
 
@@ -25,12 +25,21 @@ class Game:
         self.spojene = []
         self.hrac_narade = 1
         self.skore = {1: 0, 2: 0}
+        self.zvuk_zapnuty = True
+
 
     def draw(self):
         draw_board(self.screen, self.karty, self.odhalene, self.spojene,
                    self.hrac_narade, self.skore)
+        ikona = pygame.image.load("assets/zvuk_on.png" if self.zvuk_zapnuty else "assets/zvuk_off.png")
+        ikona = pygame.transform.scale(ikona, (40, 40))
+        self.zvuk_rect = self.screen.blit(ikona, (WIDTH - 50, HEIGHT - 50))
+
 
     def handle_click(self, pos):
+        if hasattr(self, 'zvuk_rect') and self.zvuk_rect.collidepoint(pos):
+            self.zvuk_zapnuty = not self.zvuk_zapnuty
+            return
         x, y = pos
         row = y // VELKOST_KARTY
         col = x // VELKOST_KARTY
@@ -41,9 +50,9 @@ class Game:
             rub_img = pygame.transform.scale(rub_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
             lice_img = nacitaj_obrazok(self.karty[index])
             otoc_animaciu(self.screen, rect, rub_img, lice_img)
-
             self.odhalene[index] = True
-            sounds.flip_sound.play()
+            if self.zvuk_zapnuty:
+                sounds.flip_sound.play()
             self.otocene.append(index)
             if len(self.otocene) == 2:
                 self.kontrola()
@@ -55,7 +64,8 @@ class Game:
         time.sleep(0.5)
         if self.karty[i] == self.karty[j]:
             self.spojene.extend(self.otocene)
-            sounds.match_sound.play()
+            if self.zvuk_zapnuty:
+                sounds.match_sound.play()
             self.skore[self.hrac_narade] += 1
         else:
             self.odhalene[i] = False
