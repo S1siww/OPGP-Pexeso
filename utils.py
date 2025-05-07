@@ -21,6 +21,7 @@ def zmen_hraca(hrac):
 def hra_skoncila(spojene, pocet_kariet):
     return len(spojene) == pocet_kariet
 
+
 def resetuj_hru(self):
     self.karty = [
         "banan.jpg", "banan.jpg",

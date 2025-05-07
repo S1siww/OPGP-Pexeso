@@ -1,4 +1,5 @@
 from config import *
+import pygame
 
 
 def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
@@ -24,3 +25,28 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
     screen.blit(skore_text2, (WIDTH // 2 + 53, VELKOST_POLA * VELKOST_KARTY + 50))
 
     pygame.display.flip()
+
+
+def nacitaj_obrazok(nazov):
+    image = pygame.image.load(f"assets/obrazky/{nazov}")
+    return pygame.transform.scale(image, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+
+
+def otoc_animaciu(screen, rect, rub_img, lice_img):
+    for scale in range(VELKOST_KARTY - 5, 0, -20):
+        scaled = pygame.transform.scale(rub_img, (scale, rect.height - 5))
+        x = rect.centerx - scaled.get_width() // 2
+        y = rect.y + 5
+        screen.fill(BIELA, rect)
+        screen.blit(scaled, (x, y))
+        pygame.display.update(rect)
+        pygame.time.delay(20)
+
+    for scale in range(0, VELKOST_KARTY - 4, 20):
+        scaled = pygame.transform.scale(lice_img, (scale, rect.height - 5))
+        x = rect.centerx - scaled.get_width() // 2
+        y = rect.y + 5
+        screen.fill(BIELA, rect)
+        screen.blit(scaled, (x, y))
+        pygame.display.update(rect)
+        pygame.time.delay(20)
