@@ -1,6 +1,9 @@
 from config import *
 import pygame
 
+back_img = pygame.image.load("assets/obrazky/back.png")
+back_img = pygame.transform.scale(back_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+
 
 def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
     screen.fill(BIELA)
@@ -8,12 +11,15 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
         for j in range(VELKOST_POLA):
             index = i * VELKOST_POLA + j
             x, y = j * VELKOST_KARTY, i * VELKOST_KARTY
+
             pygame.draw.rect(screen, SIVA, (x, y, VELKOST_KARTY - 5, VELKOST_KARTY - 5))
 
             if odhalene[index] or index in spojene:
                 image = pygame.image.load(f"assets/obrazky/{karty[index]}")
                 image = pygame.transform.scale(image, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
                 screen.blit(image, (x + 5, y + 5))
+            else:
+                screen.blit(back_img, (x + 5, y + 5))
 
     na_rade_text = MALY_FONT.render(f"Na rade je {hrac_narade}. hráč", True, MODRA if hrac_narade == 1 else CERVENA)
     screen.blit(na_rade_text, (WIDTH // 2 - 270, VELKOST_POLA * VELKOST_KARTY + 10))
