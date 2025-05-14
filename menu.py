@@ -14,15 +14,15 @@ def zobraz_menu(screen):
         bg_y = (config.HEIGHT - background_image.get_height()) // 2
         screen.blit(background_image, (bg_x, bg_y))
 
-        lokalne_rect = pygame.Rect(config.WIDTH // 2 - 100, 410, 200, 60)
-        pygame.draw.rect(screen, config.MODRA, lokalne_rect)
-        lokalne_text = config.MALY_FONT.render("Hrať lokálne", True, config.BIELA)
-        screen.blit(lokalne_text, (lokalne_rect.x + 30, lokalne_rect.y + 15))
+        lokalne = pygame.transform.scale(pygame.image.load('assets/obrazky/hratlokalne.png'), (config.WIDTH, config.HEIGHT))
+        lokalne = pygame.transform.smoothscale(lokalne, (300, 250))
+        lokalne_rect = lokalne.get_rect(center=(config.WIDTH // 2, 350)) 
+        screen.blit(lokalne, (lokalne_rect.x + 5, lokalne_rect.y - 10))
 
-        online_rect = pygame.Rect(config.WIDTH // 2 - 100, 480, 200, 60)
-        pygame.draw.rect(screen, config.SIVA, online_rect)
-        online_text = config.MALY_FONT.render("Online (WIP)", True, config.CIERNA)
-        screen.blit(online_text, (online_rect.x + 20, online_rect.y + 15))
+        online = pygame.transform.scale(pygame.image.load('assets/obrazky/hratonline.png'), (config.WIDTH, config.HEIGHT))
+        online = pygame.transform.smoothscale(online, (300, 250))
+        online_rect = online.get_rect(center=(config.WIDTH // 2, 440)) 
+        screen.blit(online, (online_rect.x + 5, online_rect.y - 10))
 
         pygame.display.flip()
 
