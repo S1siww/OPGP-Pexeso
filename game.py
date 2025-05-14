@@ -1,4 +1,3 @@
-
 import random
 import time
 from config import *
