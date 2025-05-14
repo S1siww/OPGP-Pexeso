@@ -3,6 +3,7 @@ from config import WIDTH, HEIGHT
 from game import Game
 from menu import zobraz_menu
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
