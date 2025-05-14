@@ -6,6 +6,7 @@ import graphics
 import sounds
 import gameover
 
+
 class Game:
     def __init__(self, screen):
         self.screen = screen
@@ -26,10 +27,18 @@ class Game:
         row = y // config.VELKOST_KARTY
         col = x // config.VELKOST_KARTY
         index = row * config.VELKOST_POLA + col
+
         if 0 <= index < len(self.karty) and not self.odhalene[index] and index not in self.spojene:
+            rect = pygame.Rect(col * config.VELKOST_KARTY, row * config.VELKOST_KARTY,
+                               config.VELKOST_KARTY, config.VELKOST_KARTY)
+            rub_img = graphics.nacitaj_obrazok("back.png")
+            lice_img = graphics.nacitaj_obrazok(self.karty[index])
+            graphics.otoc_animaciu(self.screen, rect, rub_img, lice_img)
+
             self.odhalene[index] = True
             sounds.flip_sound.play()
             self.otocene.append(index)
+
             if len(self.otocene) == 2:
                 self.kontrola()
 
@@ -38,14 +47,25 @@ class Game:
         self.draw()
         pygame.display.update()
         time.sleep(0.5)
+
         if self.karty[i] == self.karty[j]:
             self.spojene.extend(self.otocene)
             sounds.match_sound.play()
             self.skore[self.hrac_narade] += 1
         else:
+            for index in (i, j):
+                row = index // config.VELKOST_POLA
+                col = index % config.VELKOST_POLA
+                rect = pygame.Rect(col * config.VELKOST_KARTY, row * config.VELKOST_KARTY,
+                                   config.VELKOST_KARTY, config.VELKOST_KARTY)
+                lice_img = graphics.nacitaj_obrazok(self.karty[index])
+                rub_img = graphics.nacitaj_obrazok("back.png")
+                graphics.otoc_animaciu(self.screen, rect, lice_img, rub_img)
+
             self.odhalene[i] = False
             self.odhalene[j] = False
             self.hrac_narade = 2 if self.hrac_narade == 1 else 1
+
         self.otocene = []
 
     def je_koniec(self):
