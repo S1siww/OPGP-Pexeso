@@ -1,7 +1,7 @@
 import random
 import time
 from config import *
-from graphics import draw_board, nacitaj_obrazok, otoc_animaciu
+from graphics import draw_board
 import sounds
 from gameover import zobraz_gameover
 
@@ -26,19 +26,10 @@ class Game:
         row = y // VELKOST_KARTY
         col = x // VELKOST_KARTY
         index = row * VELKOST_POLA + col
-
         if 0 <= index < len(self.karty) and not self.odhalene[index] and index not in self.spojene:
-            rect = pygame.Rect(col * VELKOST_KARTY, row * VELKOST_KARTY, VELKOST_KARTY, VELKOST_KARTY)
-            rub_img = pygame.image.load("assets/obrazky/back.png")
-            rub_img = pygame.transform.scale(rub_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
-            lice_img = nacitaj_obrazok(self.karty[index])
-
-            otoc_animaciu(self.screen, rect, rub_img, lice_img)
-
             self.odhalene[index] = True
             sounds.flip_sound.play()
             self.otocene.append(index)
-
             if len(self.otocene) == 2:
                 self.kontrola()
 
@@ -47,26 +38,14 @@ class Game:
         self.draw()
         pygame.display.update()
         time.sleep(0.5)
-
         if self.karty[i] == self.karty[j]:
             self.spojene.extend(self.otocene)
             sounds.match_sound.play()
             self.skore[self.hrac_narade] += 1
         else:
-            for index in (i, j):
-                row = index // VELKOST_POLA
-                col = index % VELKOST_POLA
-                rect = pygame.Rect(col * VELKOST_KARTY, row * VELKOST_KARTY, VELKOST_KARTY, VELKOST_KARTY)
-                lice_img = nacitaj_obrazok(self.karty[index])
-                rub_img = pygame.image.load("assets/obrazky/back.png")
-                rub_img = pygame.transform.scale(rub_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
-
-                otoc_animaciu(self.screen, rect, lice_img, rub_img)
-
             self.odhalene[i] = False
             self.odhalene[j] = False
             self.hrac_narade = 2 if self.hrac_narade == 1 else 1
-
         self.otocene = []
 
     def je_koniec(self):
