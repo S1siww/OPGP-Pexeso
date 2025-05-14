@@ -2,7 +2,7 @@ import pygame
 import config
 
 background_image = pygame.transform.scale(
-    pygame.image.load('assets/obrazky/pexeso.png'), 
+    pygame.image.load('assets/obrazky/back.png'), 
     (config.WIDTH, config.HEIGHT)
 )
 
