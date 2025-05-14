@@ -1,15 +1,15 @@
 import random
 import time
-from config import *
-from graphics import draw_board
+import pygame
+import config
+import graphics
 import sounds
-from gameover import zobraz_gameover
-
+import gameover
 
 class Game:
     def __init__(self, screen):
         self.screen = screen
-        self.karty = KARTY.copy()
+        self.karty = config.KARTY.copy()
         random.shuffle(self.karty)
         self.odhalene = [False] * len(self.karty)
         self.otocene = []
@@ -18,14 +18,14 @@ class Game:
         self.skore = {1: 0, 2: 0}
 
     def draw(self):
-        draw_board(self.screen, self.karty, self.odhalene, self.spojene,
-                   self.hrac_narade, self.skore)
+        graphics.draw_board(self.screen, self.karty, self.odhalene, self.spojene,
+                            self.hrac_narade, self.skore)
 
     def handle_click(self, pos):
         x, y = pos
-        row = y // VELKOST_KARTY
-        col = x // VELKOST_KARTY
-        index = row * VELKOST_POLA + col
+        row = y // config.VELKOST_KARTY
+        col = x // config.VELKOST_KARTY
+        index = row * config.VELKOST_POLA + col
         if 0 <= index < len(self.karty) and not self.odhalene[index] and index not in self.spojene:
             self.odhalene[index] = True
             sounds.flip_sound.play()
@@ -63,7 +63,7 @@ class Game:
                     self.handle_click(event.pos)
 
             if self.je_koniec():
-                spat_rect, nova_hra_rect = zobraz_gameover(self.screen, self.skore)
+                spat_rect, nova_hra_rect = gameover.zobraz_gameover(self.screen, self.skore)
                 while True:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
