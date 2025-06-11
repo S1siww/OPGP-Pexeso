@@ -1,18 +1,42 @@
-from config import *
 import pygame
+import config
+
+VELKOST_KARTY = config.VELKOST_KARTY
+VELKOST_POLA = config.VELKOST_POLA
+WIDTH = VELKOST_KARTY * VELKOST_POLA
+HEIGHT = VELKOST_KARTY * VELKOST_POLA + 100
+
+BIELA = (255, 255, 255)
+CIERNA = (0, 0, 0)
+MODRA = (0, 102, 204)
+CERVENA = (204, 0, 0)
+SIVA = (160, 160, 160)
+
+pygame.font.init()
+MALY_FONT = pygame.font.SysFont("Arial", 25)
 
 back_img = pygame.image.load("assets/obrazky/back.png")
 back_img = pygame.transform.scale(back_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
 
 
-def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
+def nacitaj_obrazok(nazov):
+    obrazok = pygame.image.load(f"assets/obrazky/{nazov}")
+    return pygame.transform.scale(obrazok, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+
+
+def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore, vyherne_karty):
     screen.fill(BIELA)
     for i in range(VELKOST_POLA):
         for j in range(VELKOST_POLA):
             index = i * VELKOST_POLA + j
             x, y = j * VELKOST_KARTY, i * VELKOST_KARTY
 
-            pygame.draw.rect(screen, SIVA, (x, y, VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+            if index in spojene:
+                farba = MODRA if vyherne_karty.get(index) == 1 else CERVENA
+            else:
+                farba = SIVA
+
+            pygame.draw.rect(screen, farba, (x, y, VELKOST_KARTY - 5, VELKOST_KARTY - 5))
 
             if odhalene[index] or index in spojene:
                 image = pygame.image.load(f"assets/obrazky/{karty[index]}")
@@ -33,26 +57,15 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore):
     pygame.display.flip()
 
 
-def nacitaj_obrazok(nazov):
-    image = pygame.image.load(f"assets/obrazky/{nazov}")
-    return pygame.transform.scale(image, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+def otoc_animaciu(screen, rect, obrazok1, obrazok2):
+    for scale in range(VELKOST_KARTY, 0, -20):
+        zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 5))
+        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + 5))
+        pygame.display.flip()
+        pygame.time.wait(10)
 
-
-def otoc_animaciu(screen, rect, rub_img, lice_img):
-    for scale in range(VELKOST_KARTY - 5, 0, -20):
-        scaled = pygame.transform.scale(rub_img, (scale, rect.height - 5))
-        x = rect.centerx - scaled.get_width() // 2
-        y = rect.y + 5
-        screen.fill(BIELA, rect)
-        screen.blit(scaled, (x, y))
-        pygame.display.update(rect)
-        pygame.time.delay(20)
-
-    for scale in range(0, VELKOST_KARTY - 4, 20):
-        scaled = pygame.transform.scale(lice_img, (scale, rect.height - 5))
-        x = rect.centerx - scaled.get_width() // 2
-        y = rect.y + 5
-        screen.fill(BIELA, rect)
-        screen.blit(scaled, (x, y))
-        pygame.display.update(rect)
-        pygame.time.delay(20)
+    for scale in range(0, VELKOST_KARTY, 20):
+        zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 5))
+        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + 5))
+        pygame.display.flip()
+        pygame.time.wait(10)
