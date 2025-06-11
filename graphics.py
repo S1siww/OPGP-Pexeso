@@ -59,15 +59,32 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore, vyherne_kar
     pygame.display.flip()
 
 
-def otoc_animaciu(screen, rect, obrazok1, obrazok2):
-    for scale in range(VELKOST_KARTY, 0, -20):
-        zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 2*OKRAJ))
-        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
-        pygame.display.flip()
-        pygame.time.wait(10)
+def otoc_animaciu(screen, rect, obrazok1, obrazok2, otvaranie=True):
+    if otvaranie:
+        for scale in range(VELKOST_KARTY, 0, -20):
+            screen.fill(BIELA, rect)
+            zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 2*OKRAJ))
+            screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
+            pygame.display.flip()
+            pygame.time.wait(10)
 
-    for scale in range(0, VELKOST_KARTY, 20):
-        zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 2*OKRAJ))
-        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
-        pygame.display.flip()
-        pygame.time.wait(10)
+        for scale in range(0, VELKOST_KARTY + 1, 20):
+            screen.fill(BIELA, rect)
+            zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 2*OKRAJ))
+            screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
+            pygame.display.flip()
+            pygame.time.wait(10)
+    else:
+        for scale in range(VELKOST_KARTY, 0, -20):
+            screen.fill(BIELA, rect)
+            zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 2*OKRAJ))
+            screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
+            pygame.display.flip()
+            pygame.time.wait(10)
+
+        for scale in range(0, VELKOST_KARTY + 1, 20):
+            screen.fill(BIELA, rect)
+            zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 2*OKRAJ))
+            screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
+            pygame.display.flip()
+            pygame.time.wait(10)

@@ -24,7 +24,20 @@ class Game:
         riadok = y // config.VELKOST_KARTY
         index = riadok * config.VELKOST_POLA + stlpec
 
+        if index >= len(self.odhalene):
+            return
+
         if not self.odhalene[index] and index not in self.spojene and len(self.otocene) < 2:
+            row = index // config.VELKOST_POLA
+            col = index % config.VELKOST_POLA
+            rect = pygame.Rect(col * config.VELKOST_KARTY, row * config.VELKOST_KARTY,
+                               config.VELKOST_KARTY, config.VELKOST_KARTY)
+
+            rub_img = graphics.nacitaj_obrazok("back.png")
+            lice_img = graphics.nacitaj_obrazok(self.karty[index])
+
+            graphics.otoc_animaciu(self.screen, rect, rub_img, lice_img)
+
             self.odhalene[index] = True
             self.otocene.append(index)
 
@@ -51,6 +64,7 @@ class Game:
                                    config.VELKOST_KARTY, config.VELKOST_KARTY)
                 lice_img = graphics.nacitaj_obrazok(self.karty[index])
                 rub_img = graphics.nacitaj_obrazok("back.png")
+
                 graphics.otoc_animaciu(self.screen, rect, lice_img, rub_img)
 
             self.odhalene[i] = False
@@ -64,6 +78,4 @@ class Game:
                             self.hrac_narade, self.skore, self.vyherne_karty)
 
     def vyhodnotenie(self):
-        if len(self.spojene) == len(self.karty):
-            return True
-        return False
+        return len(self.spojene) == len(self.karty)
