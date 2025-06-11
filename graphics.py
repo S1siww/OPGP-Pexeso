@@ -15,13 +15,15 @@ SIVA = (160, 160, 160)
 pygame.font.init()
 MALY_FONT = pygame.font.SysFont("Arial", 25)
 
+OKRAJ = 6
+
 back_img = pygame.image.load("assets/obrazky/back.png")
-back_img = pygame.transform.scale(back_img, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+back_img = pygame.transform.scale(back_img, (VELKOST_KARTY - 2*OKRAJ, VELKOST_KARTY - 2*OKRAJ))
 
 
 def nacitaj_obrazok(nazov):
     obrazok = pygame.image.load(f"assets/obrazky/{nazov}")
-    return pygame.transform.scale(obrazok, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+    return pygame.transform.scale(obrazok, (VELKOST_KARTY - 2*OKRAJ, VELKOST_KARTY - 2*OKRAJ))
 
 
 def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore, vyherne_karty):
@@ -34,16 +36,16 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore, vyherne_kar
             if index in spojene:
                 farba = MODRA if vyherne_karty.get(index) == 1 else CERVENA
             else:
-                farba = SIVA
+                farba = BIELA
 
-            pygame.draw.rect(screen, farba, (x, y, VELKOST_KARTY - 5, VELKOST_KARTY - 5))
+            pygame.draw.rect(screen, farba, (x, y, VELKOST_KARTY, VELKOST_KARTY))
 
             if odhalene[index] or index in spojene:
                 image = pygame.image.load(f"assets/obrazky/{karty[index]}")
-                image = pygame.transform.scale(image, (VELKOST_KARTY - 5, VELKOST_KARTY - 5))
-                screen.blit(image, (x + 5, y + 5))
+                image = pygame.transform.scale(image, (VELKOST_KARTY - 2*OKRAJ, VELKOST_KARTY - 2*OKRAJ))
+                screen.blit(image, (x + OKRAJ, y + OKRAJ))
             else:
-                screen.blit(back_img, (x + 5, y + 5))
+                screen.blit(back_img, (x + OKRAJ, y + OKRAJ))
 
     na_rade_text = MALY_FONT.render(f"Na rade je {hrac_narade}. hráč", True, MODRA if hrac_narade == 1 else CERVENA)
     screen.blit(na_rade_text, (WIDTH // 2 - 270, VELKOST_POLA * VELKOST_KARTY + 10))
@@ -59,13 +61,13 @@ def draw_board(screen, karty, odhalene, spojene, hrac_narade, skore, vyherne_kar
 
 def otoc_animaciu(screen, rect, obrazok1, obrazok2):
     for scale in range(VELKOST_KARTY, 0, -20):
-        zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 5))
-        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + 5))
+        zmenseny = pygame.transform.scale(obrazok1, (scale, VELKOST_KARTY - 2*OKRAJ))
+        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
         pygame.display.flip()
         pygame.time.wait(10)
 
     for scale in range(0, VELKOST_KARTY, 20):
-        zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 5))
-        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + 5))
+        zmenseny = pygame.transform.scale(obrazok2, (scale, VELKOST_KARTY - 2*OKRAJ))
+        screen.blit(zmenseny, (rect.x + (VELKOST_KARTY - scale) // 2, rect.y + OKRAJ))
         pygame.display.flip()
         pygame.time.wait(10)
