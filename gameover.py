@@ -29,17 +29,15 @@ def zobraz_gameover(screen, skore):
 
     screen.blit(vitaz_text, (config.WIDTH // 2 - vitaz_text.get_width() // 2, 340))
 
-    spat_rect = pygame.Rect(config.WIDTH // 2 - 100, 420, 200, 60)
-    pygame.draw.rect(screen, config.SIVA, spat_rect)
-    text = config.MALY_FONT.render("Späť", True, config.CIERNA)
-    screen.blit(text, (spat_rect.centerx - text.get_width() // 2,
-                       spat_rect.centery - text.get_height() // 2))
+    spat = pygame.transform.scale(pygame.image.load('assets/obrazky/spat.png'), (config.WIDTH, config.HEIGHT))
+    spat = pygame.transform.smoothscale(spat, (300, 250))
+    spat_rect = spat.get_rect(center=(config.WIDTH // 2, 370)) 
+    screen.blit(spat, (spat_rect.x + 5, spat_rect.y - 10))
 
-    nova_hra_rect = pygame.Rect(config.WIDTH // 2 - 100, 500, 200, 60)
-    pygame.draw.rect(screen, config.SIVA, nova_hra_rect)
-    nova_hra_text = config.MALY_FONT.render("Nová hra", True, config.CIERNA)
-    screen.blit(nova_hra_text, (nova_hra_rect.centerx - nova_hra_text.get_width() // 2,
-                                nova_hra_rect.centery - nova_hra_text.get_height() // 2))
+    nova_hra = pygame.transform.scale(pygame.image.load('assets/obrazky/novahra.png'), (config.WIDTH, config.HEIGHT))
+    nova_hra = pygame.transform.smoothscale(nova_hra, (300, 250))
+    nova_hra_rect = nova_hra.get_rect(center=(config.WIDTH // 2, 470)) 
+    screen.blit(nova_hra, (nova_hra_rect.x + 5, nova_hra_rect.y - 10))
 
     pygame.display.flip()
 
