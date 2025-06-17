@@ -8,7 +8,7 @@ import gameover
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Pexeso pre dvoch hráčov")
+    pygame.display.set_caption("Pexeso")
 
     running = True
 
