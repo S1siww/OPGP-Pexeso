@@ -3,6 +3,8 @@ from config import WIDTH, HEIGHT
 from game import Game
 from menu import zobraz_menu
 import gameover
+from difficulty import zobraz_obtiaznosti
+
 
 
 def main():
@@ -14,7 +16,11 @@ def main():
 
     while running:
         zobraz_menu(screen)
-        game = Game(screen)
+        volba = zobraz_obtiaznosti(screen)
+        if volba == "stredna":
+            game = Game(screen)
+        else: 
+            continue
 
         hra_bezi = True
         while hra_bezi:
@@ -50,7 +56,12 @@ def main():
                 elif vyber == "menu":
                     hra_bezi = False
                 elif vyber == "nova_hra":
-                    game = Game(screen)
+                    volba = zobraz_obtiaznosti(screen)
+                    if volba == "stredna":
+                        game = Game(screen)
+                    else:
+                        hra_bezi = False
+
 
     pygame.quit()
 
